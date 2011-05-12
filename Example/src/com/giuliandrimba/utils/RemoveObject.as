@@ -1,0 +1,1 @@
+﻿package com.giuliandrimba.utils{	import flash.display.MovieClip;		private function removeChildren(target:MovieClip):void	{		while(target.numChildren > 0)		{			target.removeChildAt(0);		}	}}
