@@ -1,17 +1,23 @@
-package pathosverdes.core.navigation
+package com.pathosverdes.core.navigation
 {
-	import com.giuliandrimba.utils.RemoveObject;
+	/**
+	 * ...
+	 * @author Giulian Drimba
+	 */
+	
+	import com.giuliandrimba.utils.ExternalTrace;
+	import com.giuliandrimba.utils.removeChildrenFrom;
+	import com.pathosverdes.asual.swfaddress.SWFAddress;
+	import com.pathosverdes.asual.swfaddress.SWFAddressEvent;
+	import com.pathosverdes.core.manager.PagesManager;
+	import com.pathosverdes.core.navigation.event.NavigationEvent;
+	import com.pathosverdes.core.view.page.PageBase;
+	import com.pathosverdes.core.view.structure.StructureBase;
+	import com.pathosverdes.core.view.structure.StructureBaseEvent;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	
-	import pathosverdes.Pages;
-	import pathosverdes.core.navigation.event.NavigationEvent;
-	import pathosverdes.core.page.Page;
-	import pathosverdes.core.structure.Structure;
-	import pathosverdes.libs.asual.swfaddress.SWFAddress;
-	import pathosverdes.libs.asual.swfaddress.SWFAddressEvent;
 
 	public class Navigation extends EventDispatcher
 	{
@@ -40,21 +46,22 @@ package pathosverdes.core.navigation
 			{
 				throw new Error("Error: Instantiation failed: Use Pages.getInstance() instead of new.");
 			}
-			else
-			{
-				SWFAddress.addEventListener(SWFAddressEvent.CHANGE, onChangePage);
-			}
+		}
+		
+		public function initNavigation():void
+		{
+			SWFAddress.addEventListener(SWFAddressEvent.CHANGE, onChangePage);
 		}
 		
 		private function onChangePage(e:SWFAddressEvent):void
-		{
+		{			
 			if(isAddressValid())
 			{
 				addNewPage();
 			}
 			else
 			{
-				SWFAddress.setValue(Pages.START_PAGE);
+				SWFAddress.setValue(PagesManager.START_PAGE);
 			}
 		}
 		
@@ -63,21 +70,17 @@ package pathosverdes.core.navigation
 			if(currentPageName != "")
 			{
 				finishCurrentPage();
-				currentPageName = newPageName;
 			}
 			else
 			{
-				trace(newPageName);
-				//currentPageName = newPageName;
-				//initNewPage();
+				currentPageName = newPageName;
+				initNewPage();
 			}
 		}
 		
 		private function isAddressValid():Boolean
 		{
 			newPageName = SWFAddress.getValue().split("/")[1];
-			
-			trace("NEW PAGE = ", Structure.PAGE_HOLDER);
 			
 			if(newPageName.length == 0)
 			{
@@ -89,7 +92,7 @@ package pathosverdes.core.navigation
 		
 		private function initNewPage():void
 		{
-			Structure.PAGE_HOLDER.addChild(getPage(newPageName));
+			StructureBase.PAGE_HOLDER.addChild(getPage(newPageName));
 			
 			navigationEvent = new NavigationEvent(NavigationEvent.CHANGE);
 			navigationEvent.currentPage = getPage(newPageName);
@@ -99,16 +102,24 @@ package pathosverdes.core.navigation
 		
 		private function finishCurrentPage():void
 		{			
-			getPage(currentPageName).addEventListener(Page.FINISH, onPageFinish);
-			getPage(currentPageName).startTransitionOut();
+			getPage(currentPageName).addEventListener(PageBase.FINISH, onPageFinish);
+			getPage(currentPageName).finishPage();
 		}
 		
 		private function onPageFinish(e:Event):void
 		{
-			e.currentTarget.removeEventListener(Page.FINISH, onPageFinish);
-			Structure.PAGE_HOLDER.removeChild(e.currentTarget as Page);
-			
+			currentPageName = newPageName;
+			e.currentTarget.removeEventListener(PageBase.FINISH, onPageFinish);
+			removePage(e.currentTarget as PageBase);
 			initNewPage();
+		}
+		
+		private function removePage(page:PageBase):void
+		{
+			if(page.parent == StructureBase.PAGE_HOLDER)
+			{
+				StructureBase.PAGE_HOLDER.removeChild(page);
+			}
 		}
 		
 		public function goto(pageName:String):void
@@ -116,17 +127,18 @@ package pathosverdes.core.navigation
 			SWFAddress.setValue(pageName);
 		}
 		
-		private function getPage(pageName:String):Page
+		private function getPage(pageName:String):PageBase
 		{
-			for(var i:int = 0; i < Pages.Instance.totalPages; i++)
+			for(var i:int = 0; i < PagesManager.Instance.totalPages; i++)
 			{
-				if(Pages.Instance.arPages[i].name == pageName)
+				if(PagesManager.Instance.arPages[i].name == pageName)
 				{
-					return Pages.Instance.arPages[i];
+					return PagesManager.Instance.arPages[i];
 				}
 			}
 			
-			return null;
+			throw new Error("PathosVerdes error: There is no page with the name " + pageName);
+			return;
 		}
 	}
 }

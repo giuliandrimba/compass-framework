@@ -1,16 +1,17 @@
-package com.giuliandrimba.paging 
+﻿package com.giuliandrimba.paging 
 {
 	/**
 	 * ...
 	 * @author Giulian Drimba
 	 */
+	 
 	public class Paging
 	{
 		private var arOriginalData:Array;
 		private var arPages:Array;
 		
 		private var itensPerPage:int;
-		private var _currentPage:int = 0;
+		private var _currentPageNumber:int = 0;
 		private var _totalPages:int = 0;
 		
 		public function Paging(data:Array, itensPerPage:Number) 
@@ -35,51 +36,51 @@ package com.giuliandrimba.paging
 			_totalPages = arPages.length;
 		}
 		
-		public function get currentPage():int
-		{
-			return _currentPage + 1;
-		}
-		
 		private function get totalPages():int
 		{
 			return _totalPages;
 		}
 		
-		public function nextPage():Array
+		public function gotoNextPage():void
 		{
-			_currentPage <= _totalPages?_currentPage ++:_currentPage;
-			return arPages[_currentPage];
+			_currentPageNumber <= _totalPages?_currentPageNumber ++:_currentPageNumber;
 		}
 		
-		public function previousPage():Array
+		public function gotoPreviousPage():void
 		{
-			_currentPage > 0?_currentPage --:_currentPage;
-			return arPages[_currentPage];
+			_currentPageNumber > 0?_currentPageNumber --:_currentPageNumber;
 		}
 		
-		public function gotoPage(page:int):Array
+		public function gotoPage(pageNumber:int):void
 		{
-			if (page - 1 >= _totalPages || page - 1 < 0)
+			if (pageNumber - 1 >= _totalPages || pageNumber - 1 < 0)
 			{
-				throw new Error("Could not find page number " + (page - 1));
+				throw new Error("Could not find page number " + (pageNumber - 1));
 			}
 			else
 			{
-				return arPages[page - 1];
+				_currentPageNumber = pageNumber - 1;
 			}
-			
-			return arPages[currentPage];
 		}
 		
-		public function gotoLastPage():Array
+		public function get currentPage():Array
 		{
-			return arPages[totalPages - 1];
+			return arPages[_currentPageNumber];
 		}
 		
-		public function gotoFirstPage():Array
+		public function get currentPageNumber():Number
 		{
-			return arPages[0];
+			return _currentPageNumber + 1;
+		}
+		
+		public function gotoLastPage():void
+		{
+			_currentPageNumber = totalPages - 1;
+		}
+		
+		public function gotoFirstPage():void
+		{
+			_currentPageNumber = 0;
 		}
 	}
-
 }
