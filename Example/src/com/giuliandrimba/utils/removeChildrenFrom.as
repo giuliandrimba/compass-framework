@@ -1,0 +1,2 @@
+﻿package com.giuliandrimba.utils{	import flash.display.DisplayObjectContainer;
+	public function removeChildrenFrom(target:DisplayObjectContainer):void	{		while(target.numChildren > 0)		{			target.removeChildAt(0);		}	}}
