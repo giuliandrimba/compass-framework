@@ -5,15 +5,10 @@ package com.pathosverdes.core.view.structure
 	 * @author Giulian Drimba
 	 */
 	
-	import com.giuliandrimba.utils.ExternalTrace;
+	import com.pathosverdes.core.navigation.Navigation;
 	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	
-	import com.pathosverdes.core.navigation.Navigation;
-	import com.pathosverdes.core.view.page.PageBase;
 
 	public class StructureBase extends Sprite
 	{		

@@ -5,17 +5,13 @@ package com.pathosverdes.core.navigation
 	 * @author Giulian Drimba
 	 */
 	
-	import com.giuliandrimba.utils.ExternalTrace;
-	import com.giuliandrimba.utils.removeChildrenFrom;
 	import com.pathosverdes.asual.swfaddress.SWFAddress;
 	import com.pathosverdes.asual.swfaddress.SWFAddressEvent;
 	import com.pathosverdes.core.manager.PagesManager;
 	import com.pathosverdes.core.navigation.event.NavigationEvent;
 	import com.pathosverdes.core.view.page.PageBase;
 	import com.pathosverdes.core.view.structure.StructureBase;
-	import com.pathosverdes.core.view.structure.StructureBaseEvent;
 	
-	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
