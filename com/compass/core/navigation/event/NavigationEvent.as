@@ -1,4 +1,4 @@
-package com.pathosverdes.core.navigation.event
+package com.compass.core.navigation.event
 {
 	/**
 	 * ...
@@ -7,7 +7,7 @@ package com.pathosverdes.core.navigation.event
 	
 	import flash.events.Event;
 	
-	import com.pathosverdes.core.view.page.PageBase;
+	import com.compass.core.view.page.PageBase;
 	
 	public class NavigationEvent extends Event
 	{

@@ -11,7 +11,7 @@
  * @author Mark Ross <http://www.therossman.org>
  * @author Piotr Zema <http://felixz.marknaegeli.com>
  */
-package com.pathosverdes.asual.swfaddress {
+package com.compass.asual.swfaddress {
 
     import flash.errors.IllegalOperationError;
     import flash.events.Event;
@@ -22,7 +22,7 @@ package com.pathosverdes.asual.swfaddress {
     import flash.net.URLRequest;
     import flash.system.Capabilities;
     import flash.utils.Timer;
-    import com.pathosverdes.asual.swfaddress.SWFAddressEvent;
+    import com.compass.asual.swfaddress.SWFAddressEvent;
 
     /**
      * Dispatched when <code>SWFAddress</code> initializes.

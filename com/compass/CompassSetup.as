@@ -1,17 +1,17 @@
-package com.pathosverdes
+package com.compass
 {
 	/**
 	 * ...
 	 * @author Giulian Drimba
 	 */
 	
-	import com.pathosverdes.core.manager.PagesManager;
+	import com.compass.core.manager.PagesManager;
 	
-	import pathosverdesexample.pages.Pages;
+	import compassexample.pages.Pages;
 
-	public class PathosVerdesSetup
+	public class CompassSetup
 	{
-		public function PathosVerdesSetup()
+		public function CompassSetup()
 		{
 			//Here you can add your pages inside pathosverdes and set initial page
 			//Example:
@@ -21,6 +21,7 @@ package com.pathosverdes
 			PagesManager.Instance.addPage(Pages.Instance.oHome);
 			PagesManager.Instance.addPage(Pages.Instance.oAbout);
 			PagesManager.Instance.addPage(Pages.Instance.oContact);
+			PagesManager.Instance.addPage(Pages.Instance.oSignUp);
 			PagesManager.Instance.setStartPage(Pages.HOME);
 		}
 	}

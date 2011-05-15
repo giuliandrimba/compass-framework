@@ -1,11 +1,11 @@
-package com.pathosverdes.core.manager
+package com.compass.core.manager
 {
 	/**
 	 * ...
 	 * @author Giulian Drimba
 	 */
 	
-	import com.pathosverdes.core.view.page.PageBase;
+	import com.compass.core.view.page.PageBase;
 
 	public class PagesManager
 	{	

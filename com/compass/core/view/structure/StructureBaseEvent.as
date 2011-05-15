@@ -1,4 +1,4 @@
-package com.pathosverdes.core.view.structure
+package com.compass.core.view.structure
 {
 	/**
 	 * ...

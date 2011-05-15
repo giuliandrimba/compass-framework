@@ -11,10 +11,10 @@
  * @author Matthew J Tretter <http://www.exanimo.com>
  * @author Piotr Zema <http://felixz.marknaegeli.com>
  */
-package com.pathosverdes.asual.swfaddress {
+package com.compass.asual.swfaddress {
 
     import flash.events.Event;
-    import com.pathosverdes.asual.swfaddress.SWFAddress;
+    import com.compass.asual.swfaddress.SWFAddress;
     
     /**
      * Event class for SWFAddress.
