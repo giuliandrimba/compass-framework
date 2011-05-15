@@ -53,9 +53,7 @@ package com.compass.core.navigation
 		}
 		
 		private function onChangePage(e:SWFAddressEvent):void
-		{			
-			trace("isAddressValid() = ", isAddressValid());
-			
+		{						
 			if(isAddressValid())
 			{
 				openNewPage();
@@ -138,19 +136,19 @@ package com.compass.core.navigation
 		}
 		
 		public function goto(pageName:String, removeCurrentPage:Boolean = true):void
-		{
-			canRemoveActivedPage = removeCurrentPage;
-			
-			if(dontRemoveCurrentPage())
+		{		
+			if(isCurrentPageAbove())
 			{
-				checkIfCanSetPageNow(pageName);
+				canRemoveActivedPage = removeCurrentPage;
+				newPageName = pageName;
+				finishCurrentActivedPage();
 			}
 			else
 			{
-				if(isCurrentPageAbove())
+				canRemoveActivedPage = removeCurrentPage;
+				if(dontRemoveCurrentPage())
 				{
-					newPageName = pageName;
-					finishCurrentActivedPage();
+					checkIfCanSetPageNow(pageName);
 				}
 				else
 				{
@@ -161,7 +159,7 @@ package com.compass.core.navigation
 		
 		private function isCurrentPageAbove():Boolean
 		{
-			if(_currentPageName != getCurrentAddressValue())
+			if(canRemoveActivedPage == false)
 			{
 				return true
 			}
